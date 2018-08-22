@@ -2,9 +2,10 @@
 ' class
 
 class Order <<ROOT>>{
-    - orderNumber : String
+    - no : orderNumber
+    - orderer : Orderer
+    - totalAmounts : Money
     - orderLines : List<OrderLine>
-    - totalAmounts : int
     - shippingInfo : ShippingInfo
     - state : OrderState
     + changeShippingInfo(newshippingInfo:ShippingInfo)
@@ -15,17 +16,26 @@ class Order <<ROOT>>{
 
 class OrderLine {
     - product : Product
-    - price : int
-    + quantity : int
-    + amounts int
+    - price : Money
+    - quantity : int
+    - amounts Money
 }
 
 class ShippingInfo {
-    - receiverName : String
-    - receiverPhoneNumber : String
-    - shippingAddress1 : String
-    - shippingAddress2 : String
-    - shippingzipCode : String
+    - shippingAddress : Address
+    - receiver : Receiver
+}
+
+class Address {
+    - zipCode : String
+    - address1 : String
+    - address2 : String
+}
+
+class Receiver {
+    - name : String
+    - mobile : String
+    - email : String
 }
 
 enum OrderState <<ENUMERATION>> {
@@ -41,4 +51,6 @@ enum OrderState <<ENUMERATION>> {
 Order *- OrderLine
 Order --> OrderState
 Order --> ShippingInfo
+ShippingInfo --> Address
+ShippingInfo --> Receiver
 @enduml
