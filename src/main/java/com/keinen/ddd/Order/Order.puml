@@ -1,0 +1,44 @@
+@startuml
+' class
+
+class Order <<ROOT>>{
+    - orderNumber : String
+    - orderLines : List<OrderLine>
+    - totalAmounts : int
+    - shippingInfo : ShippingInfo
+    - state : OrderState
+    + changeShippingInfo(newshippingInfo:ShippingInfo)
+    + changeShipped()
+    + cancel()
+    + completePayment()
+}
+
+class OrderLine {
+    - product : Product
+    - price : int
+    + quantity : int
+    + amounts int
+}
+
+class ShippingInfo {
+    - receiverName : String
+    - receiverPhoneNumber : String
+    - shippingAddress1 : String
+    - shippingAddress2 : String
+    - shippingzipCode : String
+}
+
+enum OrderState <<ENUMERATION>> {
+    PAYMENT_WAITING
+    PREPARING
+    SHIPPED
+    DELIVERING
+    DELIVERY_COMPLETED
+    CANCELED
+}
+
+' class relation
+Order *- OrderLine
+Order --> OrderState
+Order --> ShippingInfo
+@enduml
