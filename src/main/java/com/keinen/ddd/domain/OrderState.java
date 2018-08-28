@@ -1,4 +1,4 @@
-package com.keinen.ddd.Order;
+package com.keinen.ddd.domain;
 
 public enum OrderState {
     PAYMENT_WAITING, PREPARING , SHIPPED, DELIVERING, DELIVERY_COMPLETED, CANCELED;

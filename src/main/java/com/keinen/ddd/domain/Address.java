@@ -1,14 +1,19 @@
-package com.keinen.ddd.Order;
+package com.keinen.ddd.domain;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embeddable;
+
+@Embeddable
+@DiscriminatorValue("II")
 public class Address {
     private String address1;
     private String address2;
-    private String zipcode;
+    private String zipCode;
 
-    public Address(String address1, String address2, String zipcode) {
+    public Address(String address1, String address2, String zipCode) {
         this.address1 = address1;
         this.address2 = address2;
-        this.zipcode = zipcode;
+        this.zipCode = zipCode;
     }
 
     public String getAddress1() {
@@ -20,6 +25,6 @@ public class Address {
     }
 
     public String getZipcode() {
-        return zipcode;
+        return zipCode;
     }
 }

@@ -1,4 +1,4 @@
-package com.keinen.ddd.Order;
+package com.keinen.ddd.domain;
 
 public class Money {
     private int value;

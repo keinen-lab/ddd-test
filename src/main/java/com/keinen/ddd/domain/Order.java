@@ -1,12 +1,40 @@
-package com.keinen.ddd.Order;
+package com.keinen.ddd.domain;
 
+import com.keinen.ddd.infra.EmailSetConverter;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "purchase_order")
+@Access(AccessType.FIELD)
 public class Order {
-    private OrderState state;
+
+    @EmbeddedId
+    private OrderNo number;
+
+    @Embedded
+    private Orderer orderer;
+
+    @Embedded
     private ShippingInfo shippingInfo;
+
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
+    private OrderState state;
+
+    @ElementCollection
+    @CollectionTable(name = "order_line", joinColumns = @JoinColumn(name="order_number"))
+    @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLines;
+
     private int totalAmounts;
+
+    @Column(name = "emails")
+    @Convert(converter = EmailSetConverter.class)
+    private EmailSet emailSet;
+
+
 
     public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
